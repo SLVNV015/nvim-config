@@ -43,7 +43,7 @@ map("i", "<M-w>", function()
   return vim.fn["codeium#AcceptNextWord"]()
 end, { expr = true, silent = true, desc = "Codeium: accept next word" })
 
-map("i", "<M-e>", "<Cmd>call codeium#Complete()<CR>", { silent = true, desc = "Codeium: trigger suggestion" })
+map("i", "<M-t>", "<Cmd>call codeium#Complete()<CR>", { silent = true, desc = "Codeium: trigger suggestion" })
 
 map("i", "<M-r>", function()
   return vim.fn["codeium#AcceptNextLine"]()
@@ -53,8 +53,3 @@ map("n", "<C-h>", "<C-w>h", { desc = "Window left" })
 map("n", "<C-j>", "<C-w>j", { desc = "Window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "Window up" })
 map("n", "<C-l>", "<C-w>l", { desc = "Window right" })
-
-
-
-
-
