@@ -33,11 +33,11 @@ end, { expr = true, silent = true, desc = "Codeium: clear suggestion" })
 -- cycle: Alt-h / Alt-l
 map(
   "i",
-  "<M-h>",
+  "<M-1>",
   "<Cmd>call codeium#CycleCompletions(-1)<CR>",
   { silent = true, desc = "Codeium: previous suggestion" }
 )
-map("i", "<M-l>", "<Cmd>call codeium#CycleCompletions(1)<CR>", { silent = true, desc = "Codeium: next suggestion" })
+map("i", "<M-2>", "<Cmd>call codeium#CycleCompletions(1)<CR>", { silent = true, desc = "Codeium: next suggestion" })
 
 map("i", "<M-w>", function()
   return vim.fn["codeium#AcceptNextWord"]()
@@ -53,3 +53,7 @@ map("n", "<C-h>", "<C-w>h", { desc = "Window left" })
 map("n", "<C-j>", "<C-w>j", { desc = "Window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "Window up" })
 map("n", "<C-l>", "<C-w>l", { desc = "Window right" })
+
+map("n", "<leader>gd", function()
+  require("neogen").generate()
+end, { desc = "Generate docstring" })

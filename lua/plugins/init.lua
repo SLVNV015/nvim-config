@@ -83,6 +83,7 @@ return {
         "yaml",
         "dockerfile",
         "bash",
+        "prisma",
       },
       highlight = { enable = true },
       indent = { enable = true },
