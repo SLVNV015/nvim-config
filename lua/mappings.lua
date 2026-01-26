@@ -57,3 +57,23 @@ map("n", "<C-l>", "<C-w>l", { desc = "Window right" })
 map("n", "<leader>gd", function()
   require("neogen").generate()
 end, { desc = "Generate docstring" })
+
+-- map telescope
+
+
+local function visual_selection()
+  vim.cmd('noau normal! "vy"')
+  local text = vim.fn.getreg('v')
+  vim.fn.setreg('v', {})
+  return text
+end
+
+map("v", "<leader>fg", function()
+  local selection = visual_selection()
+  require("telescope.builtin").live_grep { default_text = selection }
+end, { desc = "Search selection" })
+
+map("v", "<leader>fz", function()
+  local selection = visual_selection()
+  require("telescope.builtin").current_buffer_fuzzy_find { default_text = selection }
+end, { desc = "Search selection" })
