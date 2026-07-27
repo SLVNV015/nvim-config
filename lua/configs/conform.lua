@@ -8,6 +8,9 @@ local options = {
     typescriptreact = { "prettierd", "prettier" },
     go = { "gofmt", "goimports" },
     html = { "prettier" },
+    sql = { "pgformatter" },
+    c = { "clang-format" },
+    cpp = { "clang-format" },
   },
 
   -- format_on_save = {

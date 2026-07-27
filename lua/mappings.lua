@@ -7,6 +7,18 @@ local map = vim.keymap.set
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 map("i", "kj", "<ESC>")
+
+map({ "i", "s" }, "<mf>", function()
+  if require("luasnip").expand_or_jumpable() then
+    require("luasnip").expand_or_jump()
+  end
+end, { silent = true, desc = "LuaSnip jump forward" })
+
+map({ "i", "s" }, "<mb>", function()
+  if require("luasnip").jumpable(-1) then
+    require("luasnip").jump(-1)
+  end
+end, { silent = true, desc = "LuaSnip jump backward" })
 -- scroll
 map("i", "<A-z>", "<C-o>zz", { desc = "Center screen in insert mode" })
 map("i", "<A-j>", "<C-o><C-e>", { desc = "Scroll down" })
@@ -97,3 +109,47 @@ end, { desc = "Search selection" })
 
 map("n", "<leader>fr", "<cmd>Telescope resume<cr>", { desc = "Resume last telescope" })
 map("n", "db", "<cmd>Telescope delete_buffer<cr>", { desc = "Resume last telescope" })
+
+-- База (аналог твоих aa/an/ar)
+map({ "n", "v" }, "<leader>ma", function()
+  require("avante.api").ask()
+end, { desc = "AI Ask (Avante)" })
+map({ "n", "v" }, "<leader>me", function()
+  require("avante.api").edit()
+end, { desc = "AI Edit selection/block (Avante)" })
+map({ "n", "v" }, "<leader>mr", function()
+  require("avante.api").refresh()
+end, { desc = "AI Refresh (Avante)" })
+
+map("n", "<leader>mm", "<cmd>AvanteModels<cr>", { desc = "AI: models list" })
+
+map("n", "<leader>ms", "<cmd>AvanteSwitchProvider claude-sonnet<cr>", { desc = "AI: use Sonnet" })
+map("n", "<leader>mh", "<cmd>AvanteSwitchProvider claude-haiku<cr>", { desc = "AI: use Haiku" })
+-- Быстрые “шорткаты” под твои частые кейсы
+-- 1) Тест к текущему файлу (ты просил по одному — поэтому это только для текущего контекста)
+map("n", "<leader>mt", function()
+  require("avante.api").ask {
+    prompt = "Сгенерируй unit-тесты для ЭТОГО файла. Следуй тестовому стеку проекта (Jest/Vitest/RTL и т.п.). Не делай пачку. Верни дифф/готовый файл теста и краткие шаги запуска.",
+  }
+end, { desc = "AI: generate tests for current file" })
+
+-- 2) Тесты к выделенному коду (удобно для функций/хэндлеров)
+map("v", "<leader>mT", function()
+  require("avante.api").edit {
+    prompt = "Сгенерируй unit-тесты (1 файл) для выделенного кода. Следуй тестовому стеку проекта. Комментарии в коде: EN+RU. Не делай пачку.",
+  }
+end, { desc = "AI: generate tests for selection" })
+
+-- 3) Рефактор выделения без изменения поведения
+map("v", "<leader>mf", function()
+  require("avante.api").edit {
+    prompt = "Сделай рефакторинг выделенного кода без изменения поведения. Упростить, улучшить читаемость, типы TS/Go сохранить корректными.",
+  }
+end, { desc = "AI: refactor selection" })
+
+-- 4) Пояснить файл/ошибку (без правок)
+map("n", "<leader>mx", function()
+  require("avante.api").ask {
+    prompt = "Объясни что делает этот файл и где могут быть баги/краевые случаи. Ответ на русском. Если предлагаешь правки — отдельным блоком.",
+  }
+end, { desc = "AI: explain current file" })

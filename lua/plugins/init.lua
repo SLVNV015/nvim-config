@@ -67,6 +67,43 @@ return {
     end,
   },
   {
+    "p00f/clangd_extensions.nvim",
+    ft = { "c", "cpp" },
+    opts = {
+      inlay_hints = { inline = false }, -- Настройка подсказок типов
+    },
+  },
+  {
+    "mfussenegger/nvim-dap",
+    config = function()
+      local dap = require "dap"
+      -- Настройка адаптера (путь к codelldb из Mason)
+      dap.adapters.codelldb = {
+        type = "server",
+        port = "${port}",
+        executable = {
+          command = vim.fn.stdpath "data" .. "/mason/bin/codelldb",
+          args = { "--port", "${port}" },
+        },
+      }
+    end,
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+    config = function()
+      local dap, dapui = require "dap", require "dapui"
+      dapui.setup()
+      -- Авто-открытие UI при старте дебага
+      dap.listeners.before.attach.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.launch.dapui_config = function()
+        dapui.open()
+      end
+    end,
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     opts = {
@@ -84,6 +121,8 @@ return {
         "dockerfile",
         "bash",
         "prisma",
+        "cpp",
+        "c",
       },
       highlight = { enable = true },
       indent = { enable = true },

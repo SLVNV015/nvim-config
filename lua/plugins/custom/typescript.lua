@@ -1,0 +1,22 @@
+-- lua/plugins/init.lua
+return {
+  -- "pmizio/typescript-tools.nvim",
+  -- dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  -- ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+  -- opts = {
+  --   settings = {
+  --     -- Специфичные настройки для безупречного автоимпорта в ESM
+  --     typescript = {
+  --       suggest = {
+  --         autoImports = true,
+  --       },
+  --       preferences = {
+  --         -- Автоматически подставляет расширения .js/.ts для относительных импортов
+  --         importModuleSpecifierEnding = "js",
+  --         importModuleSpecifierPreference = "non-relative",
+  --         includeCompletionsForModuleExports = true,
+  --       },
+  --     },
+  --   },
+  -- },
+}

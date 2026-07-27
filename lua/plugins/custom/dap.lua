@@ -84,10 +84,4 @@ return {
     end,
   },
 
-  -- Сам vscode-js-debug (его надо скачать и собрать)
-  {
-    "microsoft/vscode-js-debug",
-    -- важно: этот build-скрипт прямо из README nvim-dap-vscode-js
-    build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
-  },
 }
